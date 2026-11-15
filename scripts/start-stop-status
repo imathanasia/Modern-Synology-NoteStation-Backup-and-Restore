@@ -1,0 +1,16 @@
+#!/bin/sh
+case "$1" in
+  start)
+    echo "NoteStationBackup started"
+    ;;
+  stop)
+    echo "NoteStationBackup stopped"
+    ;;
+  restart)
+    echo "NoteStationBackup restarted"
+    ;;
+  status)
+    echo "NoteStationBackup status"
+    ;;
+esac
+exit 0

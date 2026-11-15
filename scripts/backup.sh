@@ -1,0 +1,27 @@
+#!/bin/sh
+# Daily backup of Synology NoteStation content + FTS index.
+SRC="/volume1/@SynoDrive/NoteStation"
+FTS_DB="/volume1/@appstore/NoteStation/db/fts.db"
+FIRST=$(ls -d "$SRC"/*_* 2>/dev/null | head -1)
+OWNER=$(stat -c %U "$FIRST" 2>/dev/null)
+[ -n "$OWNER" ] || { echo "cannot identify NoteStation owner" >&2; exit 1; }
+HOME_DIR="/var/services/homes/$OWNER"
+[ -d "$HOME_DIR" ] || HOME_DIR="/volume1/homes/$OWNER"
+DEST_DIR="${DEST_DIR:-$HOME_DIR/NoteStationBackup}"
+LOG="/var/log/note-station-backup.log"
+
+mkdir -p "$DEST_DIR"
+STAMP="$(date +%Y%m%d_%H%M%S)"
+DEST="$DEST_DIR/NoteStation_${STAMP}.tgz"
+
+synopkg stop NoteStation >/dev/null 2>&1
+if [ -d "$SRC" ]; then
+  tar -czf "$DEST" -C "$SRC" .
+fi
+if [ -f "$FTS_DB" ]; then
+  cp -a "$FTS_DB" "$DEST_DIR/fts.db.${STAMP}"
+fi
+synopkg start NoteStation >/dev/null 2>&1
+
+printf '%s\n' "$(date -u +%FT%TZ) ok" > "$DEST_DIR/last_backup.status"
+exit 0

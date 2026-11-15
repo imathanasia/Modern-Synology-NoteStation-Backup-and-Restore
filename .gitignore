@@ -1,0 +1,9 @@
+*.tgz
+*.dump
+*.log
+avatar.ansi.local
+REPORT.md
+*.local
+docs/screenshots/*.html
+__pycache__/
+tools/__pycache__/
