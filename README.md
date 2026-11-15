@@ -26,8 +26,11 @@ Interactive / batch backup, restore and remote-sync tool for **Synology Note Sta
 ![CLI help](docs/screenshots/help.png)
 
 The playful ASCII cat is optional; preview it with
-`AVATAR_FILE=./avatar-nyan.ansi sh ./notes-backup.sh menu`.
+`AVATAR_FILE=./avatar-nyan.ansi sh ./notes-backup.sh preview`.
 The notebook-carrying cat is available as `avatar-notebook.ansi`.
+Three no-cat options are also included: `avatar-notebook-plain.ansi` (spiral
+notebook), `avatar-notes-stack.ansi` (stacked note cards), and
+`avatar-archive.ansi` (archive folder).
 
 ## Install (on the Synology)
 
@@ -102,9 +105,14 @@ restore-notes.sh     thin compatibility wrapper → notes-backup.sh restore
 avatar.ansi          truecolor GitHub avatar banner
 avatar-nyan.ansi     optional playful ASCII cat banner
 avatar-notebook.ansi optional cat-with-notebook banner
+avatar-notebook-plain.ansi optional spiral notebook banner (no cat)
+avatar-notes-stack.ansi    optional stacked note cards (no cat)
+avatar-archive.ansi        optional archive folder (no cat)
 tools/make-avatar.py avatar → ANSI renderer (Pillow)
 tools/make-nyan-banner.py optional ASCII cat banner generator
 tools/make-notebook-cat.py optional notebook-cat banner generator
+tools/make-notebook-art.py generator for three no-cat banners
+tools/build-art-gallery.py builds a local terminal-art preview page
 tools/render-cli-screenshots.py headless Chromium screenshot generator
 docs/architecture.md sanitized architecture findings
 ```
